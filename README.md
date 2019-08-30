@@ -10,3 +10,17 @@
   - dotenv (securing rcon connection parametrs)
   - nodemon (automating server reload)
 
+## Why did i need it?
+
+ We maked minecraft server with SkinRestorer plugin for friends. So only few people have premium then rest of us couldnt have a skin. That is why this API have been created in main focus it is to give user control over his own skin.
+
+## How tu use
+1. Input Firebase and Rcon setup into .env file.
+1. Install dependencies
+    ````console
+      npm install
+    ````
+1. Start API using nodemon on 80 port
+    ````console
+      npm start
+    ````
