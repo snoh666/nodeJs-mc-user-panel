@@ -1,0 +1,19 @@
+{
+  "name": "mc-page-api",
+  "version": "1.0.0",
+  "description": "Api for minecraft admin page",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index"
+  },
+  "author": "snoh666",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.1.0",
+    "express": "^4.17.1",
+    "firebase": "^6.4.2",
+    "nodemon": "^1.19.1",
+    "rcon": "^1.0.3"
+  }
+}
