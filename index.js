@@ -33,6 +33,8 @@ app.get('/', (req, res) => {
   res.send({text: 'Hello world'})
 });
 
+// ===============PLAYERS ONLINE==================
+
 app.get('/online', function(req, res) {
 
   const conn = new Rcon(HOST, PORT, PASSWORD);
@@ -76,6 +78,8 @@ app.post('/login', (req, res) => {
     res.json({ logIn: false })
   })
 });
+
+// ===============Day Time Set ================
 
 app.post('/time', (req, res) => {
   const { user } = req.body;
@@ -121,6 +125,8 @@ app.post('/time', (req, res) => {
     }
   });
 });
+
+// ========SKIN CHANGE==============
 
 app.post('/skin-change', (req, res) => {
 
