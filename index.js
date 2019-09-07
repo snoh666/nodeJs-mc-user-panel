@@ -175,6 +175,56 @@ app.post('/skin-change', (req, res) => {
 
 });
 
+// ==========WEATHER CHANGE===========
+
+app.post('/weather', (req, res) => {
+
+  const { user } = req.body;
+  const userDB = db.collection('users').doc(user);
+  const clearWeatherOnServer = () => {
+
+    const conn = new Rcon(HOST, PORT, PASSWORD);
+    const data = { text: `Pogoda zostala zmieniona`, color: "blue" };
+    const subtitleData = { text: `przez ${user}` };
+
+    conn.on('auth', () => {
+      conn.send(`weather world clear`);
+    }).on('response', value => {
+      console.log(value);
+      conn.send(`title @a subtitle ${JSON.stringify(subtitleData)}`);
+      conn.send(`title @a title ${JSON.stringify(data)}`);
+    });
+
+    conn.connect();
+
+  }
+
+  userDB.get().then(doc => {
+    if (doc.exists) {
+      const data = doc.data();
+      const nowTime = Math.floor(new Date().getTime() / 1000);
+
+      if ('lastWeatherChange' in data) {
+        if (nowTime - data.lastWeatherChange > 1800) {
+          db.collection('users').doc(user).update({ lastWeatherChange: Math.floor(new Date().getTime() / 1000) });
+          clearWeatherOnServer();
+          res.json({ info: 'Skin changed' });
+        } else {
+          res.json({ info: `You need to wait: ${Math.floor((1800 - (nowTime - data.lastWeatherChange)) / 60)} minutes.` });
+        }
+      } else {
+        db.collection('users').doc(user).update({ lastWeatherChange: Math.floor(new Date().getTime() / 1000) });
+        clearWeatherOnServer();
+        res.json({ info: 'Skin changed' });
+      }
+
+    } else {
+      res.json({ info: 'Something went wrong' });
+    }
+  });
+
+});
+
 // SERVER =============
 app.listen(80, () => {
   console.log('Listening on port');
