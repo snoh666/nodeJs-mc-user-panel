@@ -208,14 +208,14 @@ app.post('/weather', (req, res) => {
         if (nowTime - data.lastWeatherChange > 1800) {
           db.collection('users').doc(user).update({ lastWeatherChange: Math.floor(new Date().getTime() / 1000) });
           clearWeatherOnServer();
-          res.json({ info: 'Skin changed' });
+          res.json({ info: 'Weather changed! :)' });
         } else {
           res.json({ info: `You need to wait: ${Math.floor((1800 - (nowTime - data.lastWeatherChange)) / 60)} minutes.` });
         }
       } else {
         db.collection('users').doc(user).update({ lastWeatherChange: Math.floor(new Date().getTime() / 1000) });
         clearWeatherOnServer();
-        res.json({ info: 'Skin changed' });
+        res.json({ info: 'Weather changed! :)' });
       }
 
     } else {
